@@ -71,7 +71,9 @@ function Navbar() {
         <Link to="/">Home</Link>
       </NavBrand>
       <NavLinks>
-        <Link to="/sessions">Sessions</Link>
+        <Link to="/sessions">
+          Sessions
+        </Link>
         <Link to="/contact">Contact Us</Link>
         <Link to="/about">About</Link>
       </NavLinks>

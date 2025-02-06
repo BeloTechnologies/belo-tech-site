@@ -1,5 +1,6 @@
 // SessionsHero.jsx
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 import screenshot1 from '../assets/screenshot1.png'
 import screenshot2 from '../assets/screenshot2.png'
@@ -207,10 +208,14 @@ function SessionsHero() {
               to you, it is about lifting each other up.
             </HeroDescription>
             <ButtonGroup>
-              <SecondaryButton>Learn More</SecondaryButton>
-              <CTAButton>
-                Install for Free <span className="arrow">→</span>
-              </CTAButton>
+              <Link to="/about">
+                <SecondaryButton>Learn More</SecondaryButton>
+              </Link>
+              <Link to="/sessions#faq">
+                <CTAButton>
+                  Get Started
+                </CTAButton>
+              </Link>
             </ButtonGroup>
           </HeroContent>
           <HeroImage>
