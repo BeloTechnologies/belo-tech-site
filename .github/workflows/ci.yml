@@ -1,0 +1,32 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [*]
+  pull_request:
+    branches: [*]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18 # Use the Node.js version that matches your project
+
+      - name: Install dependencies
+        run: npm install # Change to `pnpm install` or `yarn install` if using a different package manager
+
+      - name: Run Linter
+        run: npm run lint
+
+      - name: Run Tests
+        run: npm test # Change if using a different test command
+
+      - name: Build Project
+        run: npm run build
