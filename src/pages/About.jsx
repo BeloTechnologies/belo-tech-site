@@ -1,5 +1,7 @@
 // About.jsx
 import styled from 'styled-components';
+// 1. Import the GitHub and LinkedIn icons from react-icons
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
 
 const AboutContainer = styled.div`
   min-height: calc(100vh - 60px); /* Adjust if you have a navbar or header */
@@ -48,28 +50,67 @@ const AboutContent = styled.div`
   text-align: center;
 `;
 
+const AboutParagraph = styled.p`
+  margin-bottom: 1rem;
+`;
+
+/* New: Social Icon Container & Link styles */
+const SocialLinks = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+`;
+
+const SocialLink = styled.a`
+  color: var(--color-text-secondary);
+  font-size: 1.8rem;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: var(--color-primary);
+  }
+`;
+
 export default function About() {
   return (
     <AboutContainer>
       <AboutCard>
-        <AboutTitle>About Sessions</AboutTitle>
-        <AboutSubtitle>Your Community for Fitness and Growth</AboutSubtitle>
+        <AboutTitle>About Belo Technologies</AboutTitle>
+        <AboutSubtitle>Software Development</AboutSubtitle>
         <AboutContent>
-          <p>
-            At Sessions, we believe in the power of community to transform
-            individual fitness journeys. Whether you&apos;re lifting weights for the
-            first time or a seasoned pro, our platform helps you stay consistent
-            and connect with like-minded individuals.
-          </p>
-          <p>
-            Share workout logs, celebrate milestones, and motivate each other to
-            keep going. We&apos;re continuously working to add new features—like 
-            progress tracking, personalized workout plans, and more—to ensure you
-            have all the tools you need to reach your goals.
-          </p>
-          <p>
-            Thank you for being a part of the Sessions community!
-          </p>
+          <AboutParagraph>
+            Belo Technologies is a software development company dedicated to creating innovative and impactful software solutions.
+            We specialize in developing cutting-edge applications that bring value to users and drive meaningful engagement.
+          </AboutParagraph>
+          <AboutParagraph>
+            Our flagship project, Sessions, is a social media fitness and fitness tracking app for iOS and Android. Designed
+            and developed entirely in-house, Sessions empowers users to connect, track their progress, and stay motivated
+            on their fitness journeys.
+          </AboutParagraph>
+          <AboutParagraph>
+            At Belo Technologies, we are passionate about building technology that inspires and transforms how people live,
+            work, and connect. Follow us to stay updated on our journey and upcoming projects!
+          </AboutParagraph>
+
+          {/* Social icon links */}
+          <SocialLinks>
+            {/* Replace # with your real GitHub/LinkedIn profiles */}
+            <SocialLink
+              href="https://github.com/BeloTechnologies"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaGithub />
+            </SocialLink>
+            <SocialLink
+              href="https://www.linkedin.com/company/belo-technologies"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaLinkedin />
+            </SocialLink>
+          </SocialLinks>
         </AboutContent>
       </AboutCard>
     </AboutContainer>

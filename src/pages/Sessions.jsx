@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import Privacy from "../components/Privacy";
 import SessionsHero from '../components/SessionsHero';
 import FAQ from '../components/FAQ';
+import SessionsPreview from '../components/SessionsPreview';
 
 function Sessions() {
   const location = useLocation();
@@ -20,6 +21,11 @@ function Sessions() {
   return (
     <div>
       <SessionsHero />
+
+      {/* Sessions Preview Section */}
+      <section id="preview">
+        <SessionsPreview />
+      </section>
 
       {/* FAQ Section */}
       <section id="faq">
