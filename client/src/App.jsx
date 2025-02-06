@@ -1,27 +1,37 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import './App.css'
-import Navbar from './components/Navbar'
-import Home from './pages/Home'
-import Privacy from './pages/Privacy'
-import Contact from './pages/Contact'
-import Report from './pages/Report'
-import Terms from './pages/Terms'
+// App.jsx
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import styled from 'styled-components';
+
+import Navbar from './components/Navbar';
+import Home from './pages/Home';
+import Sessions from './pages/Sessions';
+import Contact from './pages/Contact';
+import About from './pages/About';
+
+const AppContainer = styled.div`
+  min-height: 100vh;
+  width: 100vw;
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  display: flex;
+  flex-direction: column;
+`;
 
 function App() {
   return (
     <Router>
-      <div className="app">
+      <AppContainer>
+
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/sessions" element={<Sessions />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/report" element={<Report />} />
-          <Route path="/terms" element={<Terms />} />
+          <Route path="/about" element={<About />} />
         </Routes>
-      </div>
+      </AppContainer>
     </Router>
-  )
+  );
 }
 
-export default App
+export default App;
