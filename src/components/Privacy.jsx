@@ -1,6 +1,8 @@
 // Privacy.jsx
 import styled from 'styled-components';
 
+import Paragraph from '../ConstantStyles';
+
 const PrivacyContainer = styled.div`
   min-height: calc(100vh - 60px); /* Adjust if you have a navbar or header of height 60px */
   display: flex;
@@ -51,17 +53,16 @@ export default function Privacy() {
         <PrivacyTitle>Privacy Policy</PrivacyTitle>
         <PrivacySubtitle>We value your privacy and security</PrivacySubtitle>
         <PrivacyContent>
-          <p>
+          <Paragraph>
             Welcome to our Privacy Policy page. We’re committed to safeguarding
             your personal data and ensuring a secure and user-friendly
             experience. Please check back soon for full details on how we
             collect, use, and protect your information.
-          </p>
-
-          <p>
+          </Paragraph>
+          <Paragraph>
             In the meantime, if you have any questions, feel free to reach out
             to our team at any time. Your trust is important to us.
-          </p>
+          </Paragraph>
         </PrivacyContent>
       </PrivacyCard>
     </PrivacyContainer>

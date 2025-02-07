@@ -1,7 +1,8 @@
 // About.jsx
 import styled from 'styled-components';
-// 1. Import the GitHub and LinkedIn icons from react-icons
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
+
+import Paragraph from '../ConstantStyles';
 
 const AboutContainer = styled.div`
   min-height: calc(100vh - 60px); /* Adjust if you have a navbar or header */
@@ -50,10 +51,6 @@ const AboutContent = styled.div`
   text-align: center;
 `;
 
-const AboutParagraph = styled.p`
-  margin-bottom: 1rem;
-`;
-
 /* New: Social Icon Container & Link styles */
 const SocialLinks = styled.div`
   display: flex;
@@ -79,19 +76,19 @@ export default function About() {
         <AboutTitle>About Belo Technologies</AboutTitle>
         <AboutSubtitle>Software Development</AboutSubtitle>
         <AboutContent>
-          <AboutParagraph>
+          <Paragraph>
             Belo Technologies is a software development company dedicated to creating innovative and impactful software solutions.
             We specialize in developing cutting-edge applications that bring value to users and drive meaningful engagement.
-          </AboutParagraph>
-          <AboutParagraph>
+          </Paragraph>
+          <Paragraph>
             Our flagship project, Sessions, is a social media fitness and fitness tracking app for iOS and Android. Designed
             and developed entirely in-house, Sessions empowers users to connect, track their progress, and stay motivated
             on their fitness journeys.
-          </AboutParagraph>
-          <AboutParagraph>
+          </Paragraph>
+          <Paragraph>
             At Belo Technologies, we are passionate about building technology that inspires and transforms how people live,
             work, and connect. Follow us to stay updated on our journey and upcoming projects!
-          </AboutParagraph>
+          </Paragraph>
 
           {/* Social icon links */}
           <SocialLinks>
