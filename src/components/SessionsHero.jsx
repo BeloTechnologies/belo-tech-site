@@ -2,6 +2,8 @@
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
+import sessionsant from '../assets/sessionsant.png';
+
 const HeroContainer = styled.div`
   width: 100%;
   padding: 0 20px;
@@ -14,7 +16,7 @@ const HeroContainer = styled.div`
 const Hero = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   padding: 0 5%;
   gap: 2rem;
   max-width: 1400px;
@@ -124,7 +126,7 @@ const SecondaryButton = styled.button`
 
 const HeroImage = styled.div`
   flex: 1;
-  max-width: 600px;
+  max-width: 500px;
 
   img {
     width: 100%;
@@ -171,10 +173,7 @@ function SessionsHero() {
             </ButtonGroup>
           </HeroContent>
           <HeroImage>
-            <img
-              src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=2072&q=80"
-              alt="Hero illustration"
-            />
+            <img src={sessionsant} alt="Sessions Ant" />
           </HeroImage>
         </Hero>
       </HeroContainer>
