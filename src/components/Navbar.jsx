@@ -1,7 +1,8 @@
 // Navbar.jsx
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import logo from '../assets/belo_technologies_logo_transparent.png';
 
 // Navbar Container
 const NavbarContainer = styled.nav`
@@ -13,13 +14,21 @@ const NavbarContainer = styled.nav`
   box-shadow: 0 2px 4px var(--shadow-color);
   width: 100%;
   border-bottom: 1px solid var(--color-border);
-  position: relative; /* Important for positioning the mobile menu */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: all 0.3s ease;
 `;
 
 // Brand/Logo
 const NavBrand = styled.div`
-  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  
   a {
+    display: flex;
+    align-items: center;
     color: var(--color-primary);
     text-decoration: none;
     transition: color 0.3s ease;
@@ -27,6 +36,12 @@ const NavBrand = styled.div`
     &:hover {
       color: var(--color-primary-hover);
     }
+  }
+  
+  img {
+    height: 30px;
+    width: auto;
+    margin-right: 0.5rem;
   }
 `;
 
@@ -38,33 +53,34 @@ const NavLinks = styled.div`
   @media (max-width: 768px) {
     display: none;
   }
-  
-  a {
-    text-decoration: none;
-    color: var(--color-text-secondary);
-    font-weight: 500;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
-    position: relative;
+`;
 
-    &:hover {
-      color: var(--color-text-primary);
-    }
+const NavLink = styled(Link)`
+  text-decoration: none;
+  color: ${props => props.active ? 'var(--color-primary)' : 'var(--color-text-secondary)'};
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  position: relative;
+  padding: 0.5rem 0;
 
-    &:after {
-      content: '';
-      position: absolute;
-      width: 0;
-      height: 1px;
-      bottom: -3px;
-      left: 0;
-      background-color: var(--color-primary);
-      transition: width 0.3s ease;
-    }
+  &:hover {
+    color: var(--color-text-primary);
+  }
 
-    &:hover:after {
-      width: 100%;
-    }
+  &:after {
+    content: '';
+    position: absolute;
+    width: ${props => props.active ? '100%' : '0'};
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--color-primary);
+    transition: width 0.3s ease;
+  }
+
+  &:hover:after {
+    width: 100%;
   }
 `;
 
@@ -75,92 +91,147 @@ const Hamburger = styled.div`
   @media (max-width: 768px) {
     display: block;
   }
-  /* Simple styling for the 3 lines */
+  
   div {
     width: 25px;
     height: 3px;
     background-color: var(--color-primary);
     margin: 5px 0;
     transition: 0.4s;
+    
+    &:nth-child(1) {
+      transform: ${({ open }) => open ? 'rotate(-45deg) translate(-5px, 6px)' : 'rotate(0)'};
+    }
+    
+    &:nth-child(2) {
+      opacity: ${({ open }) => open ? '0' : '1'};
+    }
+    
+    &:nth-child(3) {
+      transform: ${({ open }) => open ? 'rotate(45deg) translate(-5px, -6px)' : 'rotate(0)'};
+    }
   }
 `;
 
-/* 
-  Mobile Menu (shown on hamburger click, hidden otherwise).
-  We'll position it absolutely under the navbar.
-*/
 const MobileMenu = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
   background-color: var(--color-surface);
   position: absolute;
-  top: 60px; /* Adjust based on Navbar height */
-  right: 5%;
-  padding: 1rem;
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
-  box-shadow: 0 2px 4px var(--shadow-color);
+  top: 60px;
+  right: 0;
+  left: 0;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: 0 4px 6px var(--shadow-color);
   z-index: 999;
+  transform: ${({ open }) => open ? 'translateY(0)' : 'translateY(-100%)'};
+  opacity: ${({ open }) => open ? '1' : '0'};
+  transition: all 0.3s ease;
+  pointer-events: ${({ open }) => open ? 'all' : 'none'};
+`;
 
-  a {
-    text-decoration: none;
-    color: var(--color-text-secondary);
-    font-weight: 500;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    position: relative;
+const MobileNavLink = styled(Link)`
+  text-decoration: none;
+  color: ${props => props.active ? 'var(--color-primary)' : 'var(--color-text-secondary)'};
+  font-weight: 500;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--color-border);
+  
+  &:last-child {
+    border-bottom: none;
+  }
 
-    &:hover {
-      color: var(--color-text-primary);
-    }
+  &:hover {
+    color: var(--color-primary);
+    padding-left: 0.5rem;
   }
 `;
 
 function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
-
+  const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
+  
   const toggleMobileMenu = () => {
     setMobileOpen((prev) => !prev);
   };
+  
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+  
+  // Close mobile menu when changing routes
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [location]);
+
+  const isActive = (path) => {
+    return location.pathname === path;
+  };
 
   return (
-    <NavbarContainer>
+    <NavbarContainer style={{ 
+      padding: scrolled ? '0.7rem 5%' : '1rem 5%',
+      boxShadow: scrolled ? '0 4px 10px rgba(0, 0, 0, 0.1)' : '0 2px 4px var(--shadow-color)'
+    }}>
       <NavBrand>
-        <Link to="/">Home</Link>
+        <Link to="/">
+          <img src={logo} alt="Belo Technologies Logo" />
+          <span>Belo</span>
+        </Link>
       </NavBrand>
 
       {/* Desktop Links */}
       <NavLinks>
-        <Link to="/sessions">Sessions</Link>
-        <Link to="/contact">Contact Us</Link>
-        <Link to="/about">About</Link>
+        <NavLink to="/" active={isActive('/')}>
+          Home
+        </NavLink>
+        <NavLink to="/sessions" active={isActive('/sessions')}>
+          Sessions
+        </NavLink>
+        <NavLink to="/contact" active={isActive('/contact')}>
+          Contact Us
+        </NavLink>
+        <NavLink to="/about" active={isActive('/about')}>
+          About
+        </NavLink>
       </NavLinks>
 
       {/* Hamburger (shown below 768px) */}
-      <Hamburger onClick={toggleMobileMenu}>
+      <Hamburger onClick={toggleMobileMenu} open={mobileOpen}>
         <div></div>
         <div></div>
         <div></div>
       </Hamburger>
 
-      {/* Mobile Menu (conditional render) */}
-      {mobileOpen && (
-        <MobileMenu>
-          <Link to="/" onClick={() => setMobileOpen(false)}>
-            Home
-          </Link>
-          <Link to="/sessions" onClick={() => setMobileOpen(false)}>
-            Sessions
-          </Link>
-          <Link to="/contact" onClick={() => setMobileOpen(false)}>
-            Contact Us
-          </Link>
-          <Link to="/about" onClick={() => setMobileOpen(false)}>
-            About
-          </Link>
-        </MobileMenu>
-      )}
+      {/* Mobile Menu */}
+      <MobileMenu open={mobileOpen}>
+        <MobileNavLink to="/" active={isActive('/')}>
+          Home
+        </MobileNavLink>
+        <MobileNavLink to="/sessions" active={isActive('/sessions')}>
+          Sessions
+        </MobileNavLink>
+        <MobileNavLink to="/contact" active={isActive('/contact')}>
+          Contact Us
+        </MobileNavLink>
+        <MobileNavLink to="/about" active={isActive('/about')}>
+          About
+        </MobileNavLink>
+      </MobileMenu>
     </NavbarContainer>
   );
 }

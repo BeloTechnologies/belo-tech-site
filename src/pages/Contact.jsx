@@ -67,13 +67,9 @@ export default function Contact() {
           <p>
             If you have any questions or concerns, please reach out to:
             <br />
-            <EmailLink href="mailto:turner.naef@gmail.com">
-              turner.naef@gmail.com
+            <EmailLink href="mailto:TurnerNaef@belotech.net">
+              TurnerNaef@belotech.net
             </EmailLink>
-          </p>
-          <p>
-            We’re working on setting up a more robust contact system soon. 
-            Thank you for your patience!
           </p>
         </ContactContent>
       </ContactCard>
