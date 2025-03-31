@@ -7,6 +7,8 @@ import Home from './pages/Home';
 import Sessions from './pages/Sessions';
 import Contact from './pages/Contact';
 import About from './pages/About';
+import Terms from './pages/Terms';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 
 const AppContainer = styled.div`
   min-height: 100vh;
@@ -26,6 +28,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/sessions" element={<Sessions />} />
+          <Route path="/sessions/terms" element={<Terms />} />
+          <Route path="/sessions/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
         </Routes>
